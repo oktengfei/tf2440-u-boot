@@ -1108,6 +1108,10 @@ config ARCH_ROCKCHIP
 	select DM_PWM
 	select DM_REGULATOR
 
+config TARGET_TF2440
+    bool "Support TF2440"
+    select CPU_ARM920T
+
 config TARGET_THUNDERX_88XX
 	bool "Support ThunderX 88xx"
 	select ARM64
