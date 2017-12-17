@@ -1111,6 +1111,7 @@ config ARCH_ROCKCHIP
 config TARGET_TF2440
     bool "Support TF2440"
     select CPU_ARM920T
+    select SUPPORT_SPL
 
 config TARGET_THUNDERX_88XX
 	bool "Support ThunderX 88xx"

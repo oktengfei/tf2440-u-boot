@@ -72,9 +72,11 @@ ENTRY(_main)
 
 #if defined(CONFIG_SPL_BUILD) && defined(CONFIG_SPL_STACK)
 	ldr	sp, =(CONFIG_SPL_STACK)
+
+loop:
+    b   loop
 #else
 	ldr	sp, =(CONFIG_SYS_INIT_SP_ADDR)
-#endif
 #if defined(CONFIG_CPU_V7M)	/* v7M forbids using SP as BIC destination */
 	mov	r3, sp
 	bic	r3, r3, #7
@@ -91,6 +93,7 @@ ENTRY(_main)
 
 	mov	r0, #0
 	bl	board_init_f
+#endif  /* modied by tengfei */
 
 #if ! defined(CONFIG_SPL_BUILD)
 
