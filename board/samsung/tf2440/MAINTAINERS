@@ -1,0 +1,7 @@
+TF2440 BOARD
+M:  David Müller <d.mueller@elsoft.ch>
+S:  Maintained
+F:  board/samsung/tf2440/
+F:  include/configs/tf2440.h
+F:  configs/tf2440_defconfig
+

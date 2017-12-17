@@ -1,0 +1,12 @@
+if TARGET_TF2440
+
+config SYS_BOARD
+	default "tf2440"
+config SYS_VENDOR
+	default "samsung"
+config SYS_SOC
+	default "s3c24x0"
+config SYS_CONFIG_NAME
+	default "tf2440"
+
+endif
