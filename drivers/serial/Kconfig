@@ -412,5 +412,10 @@ config PXA_SERIAL
 	help
 	  If you have a machine based on a Marvell XScale PXA2xx CPU you
 	  can enable its onboard serial ports by enabling this option.
+config S3C24X0_SERIAL
+    bool "s3c24x0 serial port support"
+    depends on TARGET_TF2440
+    help
+      Add by tengfei.
 
 endmenu

@@ -10,7 +10,9 @@
 
 #define CONFIG_S3C24X0      /* This is a SAMSUNG s3c24x0-type SoC */
 #define CONFIG_S3C2440      /* specifically a samsung s3c2440 soc */
-/*#define CONFIG_TF2440       / * on my tf2440 board */
+
+/* Debug */
+#define CONFIG_SKIP_LOWLEVEL_INIT
 
 /* base addr setting */
 #define CONFIG_SYS_TEXT_BASE    0x30000000      /* u-boot runing base addr */
