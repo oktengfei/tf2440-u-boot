@@ -15,6 +15,11 @@
 
 int display_options (void)
 {
+    puts("\n\n");
+    puts("*************************************\n");  /* add by tengfei */
+    puts("*       modified by oktengfei       *\n");
+    puts("*           QQ: 928720835           *\n");
+    puts("*************************************\n");
 #if defined(BUILD_TAG)
 	printf ("\n\n%s, Build: %s\n\n", version_string, BUILD_TAG);
 #else
