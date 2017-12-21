@@ -62,6 +62,12 @@ copyex:
 #  define INTMSK	0x4A000008	/* Interrupt-Controller base addresses */
 #  define INTSUBMSK	0x4A00001C
 #  define CLKDIVN	0x4C000014	/* clock divisor register */
+#  define CLK_CTL_BASE 0x4C000000  	/* add by tengfei */
+#  define MDIV_405  (0x7f<<12)  	/* add by tengfei */
+#  define PSDIV_405 (0x21)      	/* add by tengfei */
+#  define MDIV_200  (0xa1<<12)  	/* add by tengfei */
+#  define PSDIV_200 (0x31)      	/* add by tengfei */
+#  define UDIV_48   ((56<<12)+(2<<4)+2) /* Upll=(12*(56+8)/((2+2)*2^(2)))=48MHz */
 # endif
 
 	ldr	r0, =pWTCON
@@ -79,12 +85,51 @@ copyex:
 	ldr	r0, =INTSUBMSK
 	str	r1, [r0]
 # endif
+# if defined(CONFIG_S3C2440) /* add by tengfei - submask */
+    ldr r1, =0x7fff
+    ldr r0, =INTSUBMSK
+    str r1, [r0]
+# endif
 
+# if defined(CONFIG_S3C2440) /* add by tengfei -Init clock system */
+
+    mov r1, #CLK_CTL_BASE   /* LOCKTIME */
+    ldr r0, =0xffffffff
+    str r0, [r1]
+ 
+    /* FCLK:HCLK:PCLK = 1:4:8 */
+    mov r0, #5
+    str r0, [r1, #0x14]
+    
+    /* Set Async bus mode */
+    mrc p15, 0,  r0, c1, c0, 0
+    orr r0,  r0, #0xc0000000    /* R1_nF:OR:R1_iA*/
+    mcr p15, 0,  r0, c1, c0, 0
+ 
+    /* set UPLL 48Mhz */
+    
+    ldr r2, =UDIV_48
+    str r2, [r1, #0x08]
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    
+    /* set MPLL */
+    /* FCLK is 405 MHz */
+    mov r2, #MDIV_405
+    add r2, r2, #PSDIV_405
+    str r2, [r1, #0x04]     /* MPLLCON */
+#else
 	/* FCLK:HCLK:PCLK = 1:2:4 */
 	/* default FCLK is 120 MHz ! */
 	ldr	r0, =CLKDIVN
 	mov	r1, #3
 	str	r1, [r0]
+#endif  /* CONFIG_S3C2440 */
 #endif	/* CONFIG_S3C24X0 */
 
 	/*
